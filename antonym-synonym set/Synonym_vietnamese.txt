@@ -560,7 +560,7 @@ bằng_chứng bằng_cớ
 bằng_chứng bằng_cứ
 bằng_chứng chứng_cớ
 bằng_chứng chứng_cứ
-bằng_chứng 
+bằng_chứng
 bằng_cớ bằng_cứ
 bằng_cớ chứng_cớ
 bằng_cớ chứng_cứ
@@ -2939,7 +2939,7 @@ dài_nghêu dài_ngoằng
 dài_nghêu dài_ngoằng_ngoẵng
 dài_nghêu dài_ngoẵng
 dài_ngoằng dài_ngoằng_ngoẵng
-dài_ngoằng 
+dài_ngoằng
 dài_ngoằng dài_ngoẵng
 dài_ngoằng_ngoẵng dài_ngoẵng
 dài_thườn_thượt dài_thượt
@@ -3095,7 +3095,7 @@ dầu_lửa dầu_mỏ
 dầu_máy dầu_nhờn
 dầu_máy dầu_nhớt
 dầu_nhờn dầu_nhớt
-dầu_nhớt 
+dầu_nhớt
 dẩu chẩu
 dẩu chu
 dẩu giảu
@@ -3193,7 +3193,7 @@ diềm riềm
 diễm_lệ diễm_kiều
 diễm_lệ kiều_diễm
 diễn_dịch suy_diễn
-diễn_dịch 
+diễn_dịch
 diễn_đạt diễn_tả
 diễn_đạt thể_hiện
 diễn_tả miêu_tả
