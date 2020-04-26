@@ -9,14 +9,18 @@ import pandas as pd
 from sklearn import neural_network
 
 w2vfile = os.path.join(os.path.dirname(__file__), '../Word-Similarity/word2vec/W2V_150.txt')
-train_ant_file = os.path.join(os.path.dirname(__file__), '../Word-Similarity/antonym-synonym set/Antonym_vietnamese.txt')
-train_syn_file = os.path.join(os.path.dirname(__file__), '../Word-Similarity/antonym-synonym set/Synonym_vietnamese.txt')
+print(w2vfile)
+train_ant_file = os.path.join(os.path.dirname(__file__),
+                              '../Word-Similarity/antonym-synonym set/Antonym_vietnamese.txt')
+train_syn_file = os.path.join(os.path.dirname(__file__),
+                              '../Word-Similarity/antonym-synonym set/Synonym_vietnamese.txt')
 test_noun_file = os.path.join(os.path.dirname(__file__), '../Word-Similarity/datasets/ViCon-400/400_noun_pairs.txt')
 test_verb_file = os.path.join(os.path.dirname(__file__), '../Word-Similarity/datasets/ViCon-400/400_verb_pairs.txt')
 test_adj_file = os.path.join(os.path.dirname(__file__), '../Word-Similarity/datasets/ViCon-400/600_adj_pairs.txt')
+out_put_file = os.path.join(os.path.dirname(__file__), '../Word-Similarity/datasets/ViCon-400/ant_syn_evalation.csv')
+
 
 def loadWordEmbbed(filename):
-
     dict = {}
     w2vData = open(w2vfile, 'r', encoding='utf-8')
     N = int(w2vData.readline())
@@ -29,13 +33,14 @@ def loadWordEmbbed(filename):
     w2vData.close()
     return dict
 
+
 dict = loadWordEmbbed(w2vfile)
+
+
 # print(dict)
 
 
-
 def calculate_feature(u1, u2):
-
     u1 = np.array(list(u1))
     u2 = np.array(list(u2))
     # print(u1.shape)
@@ -81,7 +86,7 @@ def load_data(dict, filename, type='training', label='SYN'):
     samples = normalize(samples)
     samples = list(samples)
 
-    return samples,labels
+    return samples, labels
 
 
 X1, y1 = load_data(dict, train_ant_file, label='ANT')
@@ -109,38 +114,58 @@ model = linear_model.LogisticRegression(random_state=0, max_iter=1000)
 # model.fit(X, y)
 
 
-mlp_model = neural_network.MLPClassifier((80, ), random_state=0, max_iter=1000, alpha=0.0001)
+mlp_model = neural_network.MLPClassifier((80,), random_state=0, max_iter=1000, alpha=0.0001)
 mlp_model.fit(X[:N_train], y[:N_train])
-
+print(mlp_model.get_params())
 print('Validation: ')
-y_pred = mlp_model.predict(X[N_train : N])
+y_pred = mlp_model.predict(X[N_train: N])
 # print(y_pred)
 # print(y[N_train : N])
-print(metrics.precision_recall_fscore_support(y[N_train : N], y_pred, average='micro'))
+print(metrics.precision_recall_fscore_support(y[N_train: N], y_pred, average='micro'))
 
+evals = []
 y_pred = mlp_model.predict(XTest)
 # print(y_pred[:10])
 # print(yTest[:10])
 print('Test with nours:')
+result = metrics.precision_recall_fscore_support(yTest, y_pred)
+evals.append(np.array(list(result)).flatten())
 print(metrics.precision_recall_fscore_support(yTest, y_pred))
+# print(metrics.precision_recall_fscore_support(yTest, y_pred, pos_label='SYN',  average='binary'))
 
 XTest, yTest = load_data(dict, test_verb_file, type='test')
 y_pred = mlp_model.predict(XTest)
 print('Test with verbs:')
+result = metrics.precision_recall_fscore_support(yTest, y_pred)
+evals.append(np.array(list(result)).flatten())
 print(metrics.precision_recall_fscore_support(yTest, y_pred))
 
 XTest, yTest = load_data(dict, test_adj_file, type='test')
 y_pred = mlp_model.predict(XTest)
 print('Test with adjectives:')
+result = metrics.precision_recall_fscore_support(yTest, y_pred)
+evals.append(np.array(list(result)).flatten())
 print(metrics.precision_recall_fscore_support(yTest, y_pred))
 
+# print(evals)
+evals = np.array(evals)[:, :-2]
+# print(evals)
+
+evals = pd.DataFrame(data=evals,
+                     columns=['ANT Precision', 'SYN Precision', 'ANT Recall', 'SYN Recall', 'ANT F1', 'SYN F1'],
+                     index=['Noun Pairs', 'Verb Pairs', 'Adjective Pairs'])
+
+print('Writing test result to %s' % out_put_file)
+evals.to_csv(out_put_file, index=True, encoding='utf-8', header=True)
+pd.set_option('display.max_columns', None)
+print(evals)
 # Output:
 #
-# Validation on unseen 1/3 data :
-# (0.9104197901049476, 0.9104197901049476, 0.9104197901049476, None)
+# Validation on unseen 1/5 data :
+# (0.9312929419113054, 0.9312929419113054, 0.9312929419113054, None)
 # Test with nours:
-# (array([0.98639456, 0.84916201]), array([0.84302326, 0.98701299]), array([0.90909091, 0.91291291]), array([172, 154], dtype=int64))
+# (array([0.99367089, 0.91071429]), array([0.9127907 , 0.99350649]), array([0.95151515, 0.95031056]), array([172, 154], dtype=int64))
 # Test with verbs:
-# (array([0.99375   , 0.85393258]), array([0.85945946, 0.99346405]), array([0.92173913, 0.918429  ]), array([185, 153], dtype=int64))
+# (array([0.99431818, 0.9382716 ]), array([0.94594595, 0.99346405]), array([0.96952909, 0.96507937]), array([185, 153], dtype=int64))
 # Test with adjectives:
-# (array([0.98181818, 0.94871795]), array([0.95744681, 0.97797357]), array([0.96947935, 0.96312364]), array([282, 227], dtype=int64))
+# (array([0.9893617 , 0.98678414]), array([0.9893617 , 0.98678414]), array([0.9893617 , 0.98678414]), array([282, 227], dtype=int64))

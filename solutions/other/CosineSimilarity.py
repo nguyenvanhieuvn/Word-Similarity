@@ -43,15 +43,15 @@ def test_similarity(dict):
             sample_sim.append(sim1)
             pearson = stats.pearsonr(u1, u2)
             spearmanr = stats.spearmanr(u1, u2)
-            vsim_output.append((s[0], s[1], s[2], s[3], s[4], sim1, sim, s[5], pearson[0], spearmanr.correlation))
+            vsim_output.append((s[0], s[1], s[2], s[3], s[4], sim1, sim, s[5]))
 
         # break
 
     # print(sample_sim)
-    df = pd.DataFrame(columns=['Word1', 'Word2', 'Pos', 'Sim1', 'Sim2', 'Sim3', 'Sim', 'STD', 'Pearsonr', 'Spearmanr'],
+    df = pd.DataFrame(columns=['Word1', 'Word2', 'Pos', 'Sim1 [0,6]', 'Sim2 [0,10]', 'Sim3 [0, 1]', 'Sim Computed [0, 1]', 'STD'],
                       data=vsim_output)
     # print(df.sample())
-    df.to_csv(vsim_400_file_out, index=False, encoding='utf-8', header=True)
+    df.to_csv(vsim_400_file_out, encoding='utf-8', header=True)
     print(" Pearson correlation coefficient: ", stats.pearsonr(rs,sample_sim))
     print(" Spearman's rank correlation coefficient: ", stats.spearmanr(rs,sample_sim))
 
