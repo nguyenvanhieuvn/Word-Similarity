@@ -21,12 +21,12 @@
 - Validation on unseen 1/3 data :
 - (0.914167916041979, 0.914167916041979, 0.914167916041979, None)
 
--                  ANT Precision  SYN Precision  ANT Recall  SYN Recall
-- Noun Pairs            0.987013       0.883721    0.883721    0.987013
-- Verb Pairs            0.982249       0.887574    0.897297    0.980392
-- Adjective Pairs       0.975524       0.986547    0.989362    0.969163
+                  ANT Precision  SYN Precision  ANT Recall  SYN Recall
+ Noun Pairs            0.987013       0.883721    0.883721    0.987013
+ Verb Pairs            0.982249       0.887574    0.897297    0.980392
+ Adjective Pairs       0.975524       0.986547    0.989362    0.969163
 
--                    ANT F1    SYN F1
-- Noun Pairs       0.932515  0.932515
-- Verb Pairs       0.937853  0.931677
-- Adjective Pairs  0.982394  0.977778
+                    ANT F1    SYN F1
+ Noun Pairs       0.932515  0.932515
+ Verb Pairs       0.937853  0.931677
+ Adjective Pairs  0.982394  0.977778
