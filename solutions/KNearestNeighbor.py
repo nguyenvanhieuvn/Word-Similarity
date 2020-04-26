@@ -7,8 +7,8 @@ from sklearn import neighbors
 
 w2vfile = os.path.join(os.path.dirname(__file__), '../Word-Similarity/word2vec/W2V_150.txt')
 
-def loadWordEmbbed(filename):
 
+def loadWordEmbbed(filename):
     dict = {}
     w2vData = open(w2vfile, 'r', encoding='utf-8')
     N = int(w2vData.readline())
@@ -21,15 +21,18 @@ def loadWordEmbbed(filename):
     w2vData.close()
     return dict
 
+
 def calculate_sim(u1, u2):
     sim = (2 - spatial.distance.cosine(u1, u2)) / 2
     return 1 - sim
 
-def nearest_neighbor_model(samples, k = 5):
+
+def nearest_neighbor_model(samples, k=5):
     model = neighbors.NearestNeighbors(k, metric=calculate_sim)
     model.fit(samples)
 
     return model
+
 
 dict = loadWordEmbbed(w2vfile)
 
@@ -48,4 +51,9 @@ if w.strip() in dict:
     print(keys[neigh[1]])
     # print(calculate_sim(data[0], data[0]))
 else:
-    print('Word %s is not existed in dictionary' %w)
+    print('Word %s is not existed in dictionary' % w)
+
+# Enter your word: không_biết
+# Enter number of neighbors: 5
+# (array([[0.        , 0.14774525, 0.17461857, 0.1928641 , 0.19320361]]), array([[ 2498,  5814, 23615, 12074, 44306]], dtype=int64))
+# [['không_biết' 'không_hiểu' 'không_biết_được' 'không_rõ' 'không_hay_biết']]

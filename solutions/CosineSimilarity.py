@@ -61,3 +61,9 @@ dict = loadWordEmbbed(w2vfile)
 
 test_similarity(dict)
 
+print('Output is written to ' + vsim_400_file_out)
+
+# Pearson correlation coefficient:  (0.4468197550880767, 2.7581737626379143e-18)
+# Spearman's rank correlation coefficient:  SpearmanrResult(correlation=0.4077568887734169, pvalue=3.26456245952008e-15)
+# Output is written to %sD:/Projects/PycharmProjects/NLP_WordSimilarity/venv\../Word-Similarity/datasets/ViSim-400/Visim-400_1.txt.csv
+
