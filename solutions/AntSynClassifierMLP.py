@@ -158,25 +158,17 @@ evals.to_csv(out_put_file, index=True, encoding='utf-8', header=True)
 pd.set_option('display.max_columns', None)
 print(evals)
 
-# print(mlp_model.get_params())
+
+# Training on 2/3 data...
+# Validation on unseen 1/3 data :
+# (0.914167916041979, 0.914167916041979, 0.914167916041979, None)
+
+#                  ANT Precision  SYN Precision  ANT Recall  SYN Recall
+# Noun Pairs            0.987013       0.883721    0.883721    0.987013
+# Verb Pairs            0.982249       0.887574    0.897297    0.980392
+# Adjective Pairs       0.975524       0.986547    0.989362    0.969163
 #
-# out_put_model_file = os.path.join(os.path.dirname(__file__), '../Word-Similarity/solutions/ant_syn_model.sav')
-# pickle.dump(mlp_model, open(out_put_model_file, 'wb'))
-#
-# loaded_model = pickle.load(open(out_put_model_file, 'rb'))
-#
-#
-# print('Validation 2: ')
-#
-# y_pred = loaded_model.predict(X[N_train : N])
-# print(metrics.precision_recall_fscore_support(y[N_train : N], y_pred, average='micro'))
-# Output:
-#
-# Validation on unseen 1/5 data :
-# (0.9312929419113054, 0.9312929419113054, 0.9312929419113054, None)
-# Test with nours:
-# (array([0.99367089, 0.91071429]), array([0.9127907 , 0.99350649]), array([0.95151515, 0.95031056]), array([172, 154], dtype=int64))
-# Test with verbs:
-# (array([0.99431818, 0.9382716 ]), array([0.94594595, 0.99346405]), array([0.96952909, 0.96507937]), array([185, 153], dtype=int64))
-# Test with adjectives:
-# (array([0.9893617 , 0.98678414]), array([0.9893617 , 0.98678414]), array([0.9893617 , 0.98678414]), array([282, 227], dtype=int64))
+#                    ANT F1    SYN F1
+# Noun Pairs       0.932515  0.932515
+# Verb Pairs       0.937853  0.931677
+# Adjective Pairs  0.982394  0.977778
