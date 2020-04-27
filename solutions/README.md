@@ -4,6 +4,13 @@
 
 1. Cosine Similarity
 
+| Word1     | Word2      | Pos | Sim1 [0,6] | Sim2 [0,10] | Sim3 [0, 1] | Sim Computed | STD  |
+|-----------|------------|-----|------------|-------------|-------------|--------------|------|
+| thuộc_địa | kiều_dân   | N   | 3.93       | 6.55        | 0.655       | 0.660195     | 1.24 |
+| anh_dũng  | dũng_mãnh  | A   | 5.13       | 8.55        | 0.855       | 0.574039     | 0.72 |
+| ngày      | đêm        | N   | 0.33       | 0.55        | 0.055       | 0.750915     | 0.7  |
+| bội_bạc   | chung_thuỷ | A   | 0.47       | 0.78        | 0.078       | 0.669894     | 0.62 |
+| cấp_tiến  | bảo_thủ    | A   | 0.87       | 1.45        | 0.145       | 0.628474     | 1.15 |
 - Pearson correlation coefficient:  (0.4468197550880767, 2.7581737626379143e-18)
 - Spearman's rank correlation coefficient:  SpearmanrResult(correlation=0.4077568887734169, pvalue=3.26456245952008e-15)
 - Output is written to ../Word-Similarity/datasets/ViSim-400/Visim-400_1.txt.csv
